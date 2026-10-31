@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Game</title>
+    <style>
+        body {
+            background-color: rgb(26, 20, 63);
+            color: aliceblue;
+            font-family: Arial, sans-serif;
+        }
+        /* Button for 1 and 2 */
+        .pick-btn {
+            background-color: rgb(100, 146, 196);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            width: 100px;
+            height: 50px;
+            cursor: pointer;
+            border: 2px solid black;
+        }
+        /* Play Again button */
+        .replay-btn {
+            background-color: rgb(92, 188, 129);
+            border: 2px solid black;
+            color: black;
+            font-size: 20px;
+            border-radius: 12px;
+            width: 150px;
+            height: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        /* Result Image styling */
+        #resultImage {
+            width: 300px;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid aliceblue;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen">
+        <center>
+            <h3>There are 20 balls in a bag. You and the Computer can choose either 1 or 2 balls. The one who takes the last ball fails...!</h3><br><br>
+            <h2>Balls Left : <div id="ballcounter" style="display: inline;">20</div></h2><br><br>
+            <h3><div id="msg">Your Turn</div></h3><br>
+            <p id="pick">
+                <button class="pick-btn" onclick="one()">1</button>&nbsp;&nbsp;
+                <button class="pick-btn" onclick="two()">2</button><br>
+            </p>
+        </center>
+    </div>
+
+    <!-- RESULT SCREEN (Hidden initially) -->
+    <div id="result-screen" style="display: none; text-align: center; padding-top: 50px;">
+        <h1 id="resultText" style="font-size: 40px;"></h1>
+        <img id="resultImage" src="" alt="Result Image">
+        <br>
+        <button class="replay-btn" onclick="window.location.reload();">Play Again</button>
+    </div>
+
+    <script>
+        let ball = 20;
+
+        function hideControls() {
+            document.getElementById("pick").style.visibility = 'hidden';
+            document.getElementById("msg").style.visibility = 'hidden';
+        }
+
+        function showControls() {
+            document.getElementById("pick").style.visibility = 'visible';
+            document.getElementById("msg").style.visibility = 'visible';
+        }
+
+        // This function handles switching screens when the game is over
+        function gameOver(status) {
+            document.getElementById("game-screen").style.display = 'none'; // Hide game
+            document.getElementById("result-screen").style.display = 'block'; // Show results
+
+            let text = document.getElementById("resultText");
+            let img = document.getElementById("resultImage");
+
+            if (status === "won") {
+                text.innerHTML = "You Won...!";
+                text.style.color = "green";
+                img.src = "MessiThumbsUp.jpg"; // <-- Put your winning image file name here
+            } else {
+                text.innerHTML = "You Lost...!";
+                text.style.color = "red";
+                img.src = "MessiLaugh.jpg"; // <-- Put your losing image file name here
+            }
+        }
+
+        function one() {
+            ball = ball - 1;
+            document.getElementById("ballcounter").innerHTML = ball;
+            hideControls();
+
+            setTimeout(function() {
+                if (ball == 19 || ball == 17 || ball == 14 || ball == 11 || ball == 10 || ball == 8 || ball == 7 || ball == 5 || ball == 4) {
+                    ball = ball - 1;
+                    document.getElementById("ballcounter").innerHTML = ball;
+                    document.getElementById("msg").innerHTML = "Computer took 1 ball";
+                    showControls();
+                }
+                else if (ball == 16 || ball == 15 || ball == 13 || ball == 12 || ball == 9 || ball == 6) {
+                    ball = ball - 2;
+                    document.getElementById("ballcounter").innerHTML = ball;
+                    document.getElementById("msg").innerHTML = "Computer took 2 balls";
+                    showControls();
+                }
+                else if (ball == 3 || ball == 2) {
+                    gameOver("lost");
+                }
+                else if (ball == 1) {
+                    gameOver("won");
+                }
+            }, 1000);
+        }
+
+        function two() {
+            ball = ball - 2;
+            document.getElementById("ballcounter").innerHTML = ball;
+            hideControls();
+
+            setTimeout(function() {
+                if (ball == 18 || ball == 16 || ball == 15 || ball == 13 || ball == 12 || ball == 9 || ball == 6) {
+                    ball = ball - 2;
+                    document.getElementById("ballcounter").innerHTML = ball;
+                    document.getElementById("msg").innerHTML = "Computer took 2 balls";
+                    showControls();
+                }
+                else if (ball == 14 || ball == 11 || ball == 10 || ball == 8 || ball == 7 || ball == 5 || ball == 4) {
+                    ball = ball - 1;
+                    document.getElementById("ballcounter").innerHTML = ball;
+                    document.getElementById("msg").innerHTML = "Computer took 1 ball";
+                    showControls();
+                }
+                else if (ball == 3 || ball == 2) {
+                    gameOver("lost");
+                }
+                else if (ball == 1) {
+                    gameOver("won");
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

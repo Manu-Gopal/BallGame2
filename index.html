@@ -71,6 +71,10 @@
     <script>
         let ball = 20;
 
+        // Load the audio files (make sure these files are in the same folder)
+        let winSound = new Audio('winn.mp3');
+        let loseSound = new Audio('losee.mp3');
+
         function hideControls() {
             document.getElementById("pick").style.visibility = 'hidden';
             document.getElementById("msg").style.visibility = 'hidden';
@@ -81,7 +85,6 @@
             document.getElementById("msg").style.visibility = 'visible';
         }
 
-        // This function handles switching screens when the game is over
         function gameOver(status) {
             document.getElementById("game-screen").style.display = 'none'; // Hide game
             document.getElementById("result-screen").style.display = 'block'; // Show results
@@ -92,11 +95,13 @@
             if (status === "won") {
                 text.innerHTML = "You Won...!";
                 text.style.color = "green";
-                img.src = "MessiThumbsUp.jpg"; // <-- Put your winning image file name here
+                img.src = "MessiThumbsUp.jpg"; 
+                winSound.play(); // Play win audio
             } else {
                 text.innerHTML = "You Lost...!";
                 text.style.color = "red";
-                img.src = "MessiLaugh.jpg"; // <-- Put your losing image file name here
+                img.src = "MessiLaugh.jpg"; 
+                loseSound.play(); // Play lose audio
             }
         }
 

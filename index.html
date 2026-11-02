@@ -10,6 +10,7 @@
             background-color: rgb(26, 20, 63);
             color: aliceblue;
             font-family: Arial, sans-serif;
+            transition: background-color 0.4s ease;
         }
         /* Button for 1 and 2 */
         .pick-btn {
@@ -23,17 +24,24 @@
             cursor: pointer;
             border: 2px solid black;
         }
-        /* Play Again button */
+        /* Stylish Play Again button */
         .replay-btn {
-            background-color: rgb(92, 188, 129);
-            border: 2px solid black;
-            color: black;
-            font-size: 20px;
-            border-radius: 12px;
-            width: 150px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            width: 180px;
             height: 60px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .replay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
         }
         /* Result Image styling */
         #resultImage {
@@ -41,7 +49,8 @@
             height: auto;
             border-radius: 15px;
             margin: 20px 0;
-            border: 3px solid aliceblue;
+            border: 3px solid #333;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -89,18 +98,18 @@
             document.getElementById("game-screen").style.display = 'none'; // Hide game
             document.getElementById("result-screen").style.display = 'block'; // Show results
 
+            // Change page background to white and text to dark for the result page
+            document.body.style.backgroundColor = "#ffffff";
+            document.body.style.color = "#222222";
+
             let text = document.getElementById("resultText");
             let img = document.getElementById("resultImage");
 
             if (status === "won") {
-                text.innerHTML = "You Won...!";
-                text.style.color = "green";
-                img.src = "win.jpg"; 
+                img.src = "tandjwin.png";
                 winSound.play(); // Play win audio
             } else {
-                text.innerHTML = "You Lost...!";
-                text.style.color = "red";
-                img.src = "lose.jpg"; 
+                img.src = "tandjlose.png";
                 loseSound.play(); // Play lose audio
             }
         }
